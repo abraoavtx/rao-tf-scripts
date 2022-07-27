@@ -1,0 +1,10 @@
+variable "controller_ip"              {default = "3.237.182.183"}
+variable "username"                   {default = "admin"}
+variable "password"                   {default = "aviaReg!23"}
+variable "account_name"               {default = "abrao-account-66patch"}
+variable "region"                     { default = "us-west-2"}
+variable "pre_shared_key"             {default="aviaReg!23"}
+variable "iam_role_1"                 {default = "bootstrap-VM-S3-role-abrao"}
+variable "iam_role_2"                 {default = "bootstrap-VM-S3-role-abrao"}
+variable "bootstrap_bucket_name_1"    {default = "bootstrap-bucket-pan-abrao"}
+variable "bootstrap_bucket_name_2"    {default = "bootstrap-bucket-pan-abrao"}

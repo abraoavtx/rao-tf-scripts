@@ -1,0 +1,12 @@
+variable "controller_ip"           {default = "3.237.182.183"}
+variable "username"                {default = "admin"}
+variable "password"                {default = "aviaReg!23"}
+variable "account_name"            {default = "abrao-gcp-66patch"}
+variable "region"                  { default = "us-east1"}
+variable "account_name_aws"        {default = "abrao-account-66patch"}
+variable "region_aws"              { default = "us-west-2"}
+variable "cidr"                    {default = "10.207.2.0/23"}
+variable "lan_cidr"                {default= "10.207.4.0/24"}
+variable "egress_cidr"             {default =  "10.207.5.0/24"}
+variable "mgmt_cidr"               {default =  "10.207.6.0/24"}
+variable "pre_shared_key"          {default = "aviaReg!23"}

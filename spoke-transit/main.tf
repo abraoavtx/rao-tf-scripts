@@ -21,7 +21,7 @@ resource "aviatrix_spoke_gateway" "spoke_gateway_aws" {
   vpc_id         = aviatrix_vpc.aws_spoke1_vpc.vpc_id
   vpc_reg        = var.aws_region1
   subnet         = aviatrix_vpc.aws_spoke1_vpc.public_subnets[0].cidr
-  gw_size        = "t3.medium"
+  gw_size        = "t2.micro"
   single_ip_snat = false
   #manage_transit_gateway_attachment = false
 }
@@ -46,7 +46,7 @@ resource "aviatrix_spoke_gateway" "spoke2_gateway_aws" {
   vpc_id         = aviatrix_vpc.aws_spoke2_vpc.vpc_id
   vpc_reg        = var.aws_region2
   subnet         = aviatrix_vpc.aws_spoke2_vpc.public_subnets[0].cidr
-  gw_size        = "t3.medium"
+  gw_size        = "t2.micro"
   single_ip_snat = false
   #manage_transit_gateway_attachment = false
 }
@@ -66,8 +66,8 @@ resource "aviatrix_transit_gateway" "aws_transit_1" {
   account_name           = var.account_name_aws
   cloud_type             = 1
   gw_name                = "aws-transit1-${local.prefix}"
-  gw_size                = "c5n.xlarge"
-  ha_gw_size             = "c5n.xlarge"
+  gw_size                = "t3.medium"
+  ha_gw_size             = "t3.medium"
   insane_mode            = false
   subnet                 = aviatrix_vpc.aws_transit1_vpc.public_subnets[0].cidr
   ha_subnet              = aviatrix_vpc.aws_transit1_vpc.public_subnets[1].cidr

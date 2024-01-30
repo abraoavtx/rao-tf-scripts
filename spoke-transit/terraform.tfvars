@@ -1,5 +1,5 @@
 username                            = "admin"
-password                            = "aviaReg!23"
+password                            = ""
 region_azure                        = "West US 3"
 aws_region1                         = "us-east-2"
 aws_region2                         = "us-west-2"

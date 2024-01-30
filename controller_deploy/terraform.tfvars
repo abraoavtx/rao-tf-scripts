@@ -1,4 +1,4 @@
-admin_password       = "aviaReg!23"
+admin_password       = ""
 admin_email          = ""
 access_account_email = ""
 access_account_name  = ""

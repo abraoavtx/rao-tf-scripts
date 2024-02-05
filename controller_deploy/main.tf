@@ -49,14 +49,36 @@ resource "aws_security_group_rule" "dev_access" {
 provider "http-full" {}
 
 # HTTP POST 
-data "http" "enable_ssh_passphrase" {
-  provider             = http-full
-  url                  = "https://${module.aviatrix_controller_aws.public_ip}/v1/backend1"
-  method               = "POST"
-  insecure_skip_verify = true
-  request_headers = {
-    content-type = "application/x-www-form-urlencoded"
+# data "http" "enable_ssh_passphrase" {
+#   provider             = http-full
+#   url                  = "https://${module.aviatrix_controller_aws.public_ip}/v1/backend1"
+#   method               = "POST"
+#   insecure_skip_verify = true
+#   request_headers = {
+#     content-type = "application/x-www-form-urlencoded"
+#   }
+#   request_body = "action=enable_access_shell&passphrase=${local.backend_passphrase}"
+#   depends_on   = [module.aviatrix_controller_aws]
+# }
+
+resource "null_resource" "enable_access_shell" {
+  triggers = {
+    aviatrix_controller_aws_ip = "${module.aviatrix_controller_aws.public_ip}"
   }
-  request_body = "action=enable_access_shell&passphrase=${local.backend_passphrase}"
-  depends_on   = [module.aviatrix_controller_aws]
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      CTRL_PUB_IP       = "${module.aviatrix_controller_aws.public_ip}"
+      CTRL_BACKEND_PASS = "${local.backend_passphrase}"
+    }
+    command = <<EOC
+        for x in `seq 1 2`; do \
+             curl -X POST -s -k https://$CTRL_PUB_IP/v1/backend1 \
+             -H "Content-Type: application/x-www-form-urlencoded" \
+             -d "action=enable_access_shell&passphrase=$CTRL_BACKEND_PASS"; \
+        done; \
+        echo "backend ssh is enabled"
+      EOC
+  }
+  depends_on = [module.aviatrix_controller_aws]
 }
